@@ -13,8 +13,8 @@ class Reservation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100, nullable: false)]
-    private ?string $NumeroReservation = null;
+    #[ORM\Column(length: 100)]
+    private ?string $numeroReservation = null;
 
     #[ORM\Column(nullable: false)]
     private ?\DateTime $dateReservation = null;
@@ -34,12 +34,12 @@ class Reservation
 
     public function getNumeroReservation(): ?string
     {
-        return $this->NumeroReservation;
+        return $this->numeroReservation;
     }
 
-    public function setNumeroReservation(string $NumeroReservation): static
+    public function setNumeroReservation(string $numeroReservation): static
     {
-        $this->NumeroReservation = $NumeroReservation;
+        $this->numeroReservation = $numeroReservation;
 
         return $this;
     }
@@ -78,5 +78,14 @@ class Reservation
         $this->creneauReserve = $creneauReserve;
 
         return $this;
+    }
+
+    public function generateNumeroReservation(): string
+    {
+        if ($this->id !== null && $this->dateReservation !== null) {
+            $this->numeroReservation = $this->id . $this->dateReservation->format('Ymd');
+
+            return $this->numeroReservation;
+        }
     }
 }

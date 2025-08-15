@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use App\Repository\FoodtruckRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+#[UniqueEntity(fields: ['nom'], message: 'Ce nom de foodtruck existe déjà.')]
 #[ORM\Entity(repositoryClass: FoodtruckRepository::class)]
 class Foodtruck
 {
