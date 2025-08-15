@@ -13,7 +13,7 @@ class Creneau
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: false)]
     private ?string $numeroNom = null;
 
     #[ORM\ManyToOne]
