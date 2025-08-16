@@ -22,7 +22,7 @@ class Creneau
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?JourDisponible $JourSemaine = null;
+    private ?JourDisponible $jourSemaine = null;
 
     public function getId(): ?int
     {
@@ -55,12 +55,12 @@ class Creneau
 
     public function getJourSemaine(): ?JourDisponible
     {
-        return $this->JourSemaine;
+        return $this->jourSemaine;
     }
 
-    public function setJourSemaine(?JourDisponible $JourSemaine): static
+    public function setJourSemaine(?JourDisponible $jourSemaine): static
     {
-        $this->JourSemaine = $JourSemaine;
+        $this->jourSemaine = $jourSemaine;
 
         return $this;
     }
