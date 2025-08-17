@@ -44,7 +44,7 @@ final class ApiCreneauController extends AbstractController
     }
 
     #[Route('/disponibilites/{campus}/{date}', name: 'disponibilites_campus_date', methods: ['GET'])]
-    public function getDisponibiliteByCampus(string $campus, string $date, EntityManagerInterface $entityManager): JsonResponse
+    public function getDisponibiliteByCampusByDate(string $campus, string $date, EntityManagerInterface $entityManager): JsonResponse
     {
         try{
                 $dateObjet = \DateTime::createFromFormat('Ymd', $date);
@@ -54,7 +54,7 @@ final class ApiCreneauController extends AbstractController
 
                     $resa = $entityManager->getRepository(Reservation::class)->findByCampusAndDate($dateObjet, $campusEntity);
 
-                    $DispoByCampus = $entityManager->getRepository(Creneau::class)->findByCampusAndDate($dateObjet, $campusEntity, $resa);
+                    $DispoByCampus = $entityManager->getRepository(Creneau::class)->findByCampusAndDate($dateObjet, $campusEntity);
                     $data = [];
                     
                     foreach ($DispoByCampus as $disponibilite) {

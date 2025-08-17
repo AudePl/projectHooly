@@ -21,7 +21,7 @@ class CreneauRepository extends ServiceEntityRepository
     /**
     * @return Creneau[] Returns an array of Creneau objects
     */
-    public function findByCampusAndDate(?\Datetime $date, ?Campus $campus, $resa): array
+    public function findByCampusAndDate(?\Datetime $date, ?Campus $campus): array
     {
         $day = (int) $date->format('w');
         $start = (clone $date)->setTime(0, 0, 0);
