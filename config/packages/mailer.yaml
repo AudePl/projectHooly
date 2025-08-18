@@ -1,0 +1,7 @@
+framework:
+    mailer:
+        dsn: '%env(MAILER_DSN)%'
+        envelope:
+            sender: 'foodtruckReservation@hooly.com'
+        headers:
+            From: 'Foodtruck chez Hooly <foodtruckReservation@hooly.com>'
