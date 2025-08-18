@@ -5,21 +5,23 @@ namespace App\Service;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
 use App\Entity\Reservation;
 
 class EmailService
 {
     public function __construct(
         private MailerInterface $mailer,
+        private Environment $twig
     ) {
     }
 
-    private function sendEmail(string $destinataire, string $objet, $contenu)
+    private function sendEmail(string $destinataire, string $objet, string $contenu)
     {
         $email = (new Email())
             ->to($destinataire)
             ->subject($objet)
-            ->text($contenu);
+            ->html($contenu);
 
         $this->mailer->send($email);
 
@@ -28,11 +30,14 @@ class EmailService
 
     public function mailRappelReservation(Reservation $reservation)
     {
-        //@TODO / Completer
 
         $destinataire = $reservation->getFoodtruck()->getEmail();
-        $objet = "Rappel : Votre réservation pour votre foodtruck";
-        $contenu = "Rappel de votre resa N°" . $reservation->getNumeroReservation() . " pour votre foodtruck : " . $reservation->getFoodtruck()->getNom();
+        $objet = "Votre foodtruck " . $reservation->getFoodtruck()->getNom() . " est attendu !";
+
+        $contenu = $this->twig->render('emails/rappelReservation.html.twig', [
+                'reservation' => $reservation,
+                ]);
+
         $this->sendEmail($destinataire, $objet, $contenu);
     }
 
