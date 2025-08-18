@@ -34,6 +34,24 @@ class ReservationRepository extends ServiceEntityRepository
           ;
     }
 
+     /**
+    * @return Reservation[] Returns an array of Reservation objects
+    */
+    public function findByDate(?\Datetime $date): array
+    {
+        $start = (clone $date)->setTime(0, 0, 0);
+        $end = (clone $date)->modify('+1 day')->setTime(0, 0, 0);
+
+        return $this->createQueryBuilder('resa')
+            ->where('resa.dateReservation >= :start')
+            ->andWhere('resa.dateReservation < :end')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery()
+            ->getResult()
+          ;
+    }
+
     /**
     * @return Reservation[] Returns an array of Reservation objects
     */
