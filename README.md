@@ -39,6 +39,6 @@ Axes d'améliorations à mettre en place :
 - Création d'un champ "actif" pour les emplacements/créneaux pour gestion historique des réservations
 - Création d'autres endPoint
 
-Pour inforamtion : 
-Estimation du temps de réalisation : 30h (dont 5h d'initialisation de l'environnement de développement)
+Pour information : 
+Estimation du temps de réalisation = 30h (dont 5h d'initialisation de l'environnement de développement)
 
