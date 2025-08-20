@@ -1,6 +1,6 @@
 # ProjectHooly
 Projet Hooly pour test technique pour Umake.
-Mise en place d'une API.
+Mise en place d'une API sous Symfony7.2 / PHP8.4 en suivant les principes d'une architecture REST.
 
 ## Getting Started
 
@@ -27,5 +27,18 @@ Mise en place d'une API.
 
 ### URLs availables
 
-* Homepage [localhost:8000/](localhost:8000/)
+* Homepage par défaut [localhost:8000/](localhost:8000/)
 * Doc API en json [localhost:8000/api/doc.json](localhost:8000/api/doc.json)
+
+
+========================================================================================================================================
+
+Axes d'améliorations à mettre en place : 
+- Mise en place d'une authentification via JWT
+- Création d'exceptions techniques et fonctionnelles via un service
+- Création d'un champ "actif" pour les emplacements/créneaux pour gestion historique des réservations
+- Création d'autres endPoint
+
+Pour inforamtion : 
+Estimation du temps de réalisation : 30h (dont 5h d'initialisation de l'environnement de développement)
+
