@@ -1,6 +1,6 @@
 # ProjectHooly
 Projet Hooly pour test technique pour Umake.
-Mise en place d'une API
+Mise en place d'une API.
 
 ## Getting Started
 
@@ -18,11 +18,10 @@ Mise en place d'une API
 3. Modify in .env.dev this line : `DATABASE_URL="mysql://user:password@127.0.0.1:3306/nom_de_la_base"`
 4. Create DataBase : `php bin/console doctrine:database:create`
 5. Execute migrations : `php bin/console doctrine:migrations:migrate`
-6. Run server : `php bin/console server:start`
 
 ### Working
 
-1. Run `symfony server:start` to launch your local php web server
+1. Run `php bin/console server:start` to launch your local php web server
 
 ### URLs availables
 
