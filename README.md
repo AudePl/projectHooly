@@ -7,21 +7,23 @@ Mise en place d'une API.
 ### Prerequisites
 
 1. Check Git is installed
-2. Check PHP 8.4 is installed
+2. Check PHP 8.4 (and classics extensions packages) is installed
 3. Check composer is installed
 4. Check MariaDB is installed
+5. Check Symfony-CLI is installed and bashrc updated
 
 ### Install
 
 1. Clone this project
-2. Run `composer install`
-3. Modify in .env.dev this line : `DATABASE_URL="mysql://user:password@127.0.0.1:3306/nom_de_la_base"`
-4. Create DataBase : `php bin/console doctrine:database:create`
-5. Execute migrations : `php bin/console doctrine:migrations:migrate`
+2.Go to the new folder with : `cd projectHooly`
+3. Run `composer install`
+4. Modify in .env this line : `DATABASE_URL="mysql://user:password@127.0.0.1:3306/nom_de_la_base"`
+5. Create DataBase : `php bin/console doctrine:database:create`
+6. Execute migrations : `php bin/console doctrine:migrations:migrate`
 
 ### Working
 
-1. Run `php bin/console server:start` to launch your local php web server
+1. Run `symfony server:start` to launch your local php web server
 
 ### URLs availables
 
