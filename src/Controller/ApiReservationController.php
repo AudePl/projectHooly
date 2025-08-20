@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use OpenApi\Attributes as OA;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\ReservationRepository;
 use App\Service\ReservationService;
@@ -19,6 +20,34 @@ use App\Entity\Foodtruck;
 final class ApiReservationController extends AbstractController
 {
     #[Route('/reservations', name: 'reservations', methods: ['GET'])]
+    #[OA\Get(
+        summary: "Liste des réservations",
+        operationId: 'getReservationList',
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Retourne la liste des reservations',
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(
+                type: 'object',
+                properties: [
+                    new OA\Property(property: 'idReservation', type: 'integer', example: 42),
+                    new OA\Property(property: 'numeroReservation', type: 'string', example: '4220250820'),
+                    new OA\Property(property: 'dateReservation', type: 'string', example: '2025-08-20'),
+                    new OA\Property(property: 'nomFoodtruck', type: 'string', example: 'Thai Landais'),
+                    new OA\Property(property: 'typeCuisineFoodtruck', type: 'string', example: 'Thailandaise'),
+                    new OA\Property(property: 'emailFoodtruck', type: 'string', example: 'thailandais@hotmail.fr'),
+                    new OA\Property(property: 'nomCampus', type: 'string', example: 'Lyon'),
+                    new OA\Property(property: 'nomEmplacement', type: 'string', example: 'Forum')
+                ]
+            )
+        )
+    )]
+    #[OA\Response(
+        response: 400,
+        description: 'Requête invalide'
+    )]
     public function getAllReservations(ReservationRepository $ReservationRepository): JsonResponse
     {
         try{
@@ -51,6 +80,34 @@ final class ApiReservationController extends AbstractController
     }
 
     #[Route('/reservations', name: 'reservations_create', methods: ['POST'])]
+    #[OA\Post(
+        summary: "Creation d'une réservation",
+        operationId: 'createNewReservation',
+    )]
+    #[OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            type: 'object',
+            required: ['date', 'idFoodtruck', 'campus'],
+            properties: [
+                new OA\Property(property: 'date', type: 'string', example: '2025-08-20'),
+                new OA\Property(property: 'idFoodtruck', type: 'integer', example: 42),
+                new OA\Property(property: 'campus', type: 'string', example: 'Lyon')
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 201,
+        description: "Retourne le numero unique de reservation"
+    )]
+    #[OA\Response(
+        response: 400,
+        description: 'Requête invalide'
+    )]
+    #[OA\Response(
+        response: 409,
+        description: 'Conflit lors de la créaion, non respect des règles de gestion'
+    )]
     public function createOneReservation(Request $request, EntityManagerInterface $entityManager, ReservationService $reservationService): JsonResponse
     {
         // Creation d'une reservation : Reservation = 1 foodtruck + 1 date + 1 campus
@@ -127,6 +184,34 @@ final class ApiReservationController extends AbstractController
     }
 
     #[Route('/reservations/{campus}', name: 'reservations_campus', methods: ['GET'])]
+    #[OA\Get(
+        summary: "Liste des réservations pour un campus",
+        operationId: 'getReservationListByCampus',
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Retourne la liste des reservations d\'un campus',
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(
+                type: 'object',
+                properties: [
+                    new OA\Property(property: 'idReservation', type: 'integer', example: 42),
+                    new OA\Property(property: 'numeroReservation', type: 'string', example: '4220250820'),
+                    new OA\Property(property: 'dateReservation', type: 'string', example: '2025-08-20'),
+                    new OA\Property(property: 'nomFoodtruck', type: 'string', example: 'Thai Landais'),
+                    new OA\Property(property: 'typeCuisineFoodtruck', type: 'string', example: 'Thailandaise'),
+                    new OA\Property(property: 'emailFoodtruck', type: 'string', example: 'thailandais@hotmail.fr'),
+                    new OA\Property(property: 'nomCampus', type: 'string', example: 'Lyon'),
+                    new OA\Property(property: 'nomEmplacement', type: 'string', example: 'Forum')
+                ]
+            )
+        )
+    )]
+    #[OA\Response(
+        response: 400,
+        description: 'Requête invalide'
+    )]
     public function getAllReservationsByCampus(string $campus, EntityManagerInterface $entityManager): JsonResponse
     {
         try{
@@ -163,6 +248,34 @@ final class ApiReservationController extends AbstractController
     }
 
     #[Route('/reservations/{campus}/{date}', name: 'reservations_campus_date', methods: ['GET'])]
+    #[OA\Get(
+        summary: "Liste des réservations pour un campus pour une date donnée",
+        operationId: 'getReservationListByCampusAndByDate',
+    )]
+    #[OA\Response(
+        response: 200,
+        description: 'Retourne la liste des reservations d\'un campus pour une date donnée',
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(
+                type: 'object',
+                properties: [
+                    new OA\Property(property: 'idReservation', type: 'integer', example: 42),
+                    new OA\Property(property: 'numeroReservation', type: 'string', example: '4220250820'),
+                    new OA\Property(property: 'dateReservation', type: 'string', example: '2025-08-20'),
+                    new OA\Property(property: 'nomFoodtruck', type: 'string', example: 'Thai Landais'),
+                    new OA\Property(property: 'typeCuisineFoodtruck', type: 'string', example: 'Thailandaise'),
+                    new OA\Property(property: 'emailFoodtruck', type: 'string', example: 'thailandais@hotmail.fr'),
+                    new OA\Property(property: 'nomCampus', type: 'string', example: 'Lyon'),
+                    new OA\Property(property: 'nomEmplacement', type: 'string', example: 'Forum')
+                ]
+            )
+        )
+    )]
+    #[OA\Response(
+        response: 400,
+        description: 'Requête invalide'
+    )]
     public function getAllReservationsByCampusAndDate(string $campus, string $date, EntityManagerInterface $entityManager): JsonResponse
     {
         try{
@@ -204,6 +317,29 @@ final class ApiReservationController extends AbstractController
     }
 
     #[Route('/reservations/{id}', name: 'reservations_delete', methods: ['DELETE'])]
+    #[OA\Delete(
+        summary: "Supprime une reservation",
+        operationId: 'deleteOneReservation',
+    )]
+    #[OA\Parameter(
+        name: 'id',
+        description: 'Identifiant unique de la reservation',
+        in: 'path',
+        required: true,
+        schema: new OA\Schema(type: 'integer', example: 42)
+    )]
+    #[OA\Response(
+        response: 200,
+        description: "Retourne l\'id de la reservation supprimée",
+    )]
+    #[OA\Response(
+        response: 400,
+        description: 'Requête invalide'
+    )]
+    #[OA\Response(
+        response: 404,
+        description: 'Parametre invalide, aucune ressource trouvée'
+    )]
     public function deleteOneReservation(int $id, EntityManagerInterface $entityManager): JsonResponse
     {
         try{
@@ -218,7 +354,7 @@ final class ApiReservationController extends AbstractController
 
             } else {
 
-                return $this->json("Aucune reservation correspondant à l'id " .  $id);
+                return $this->json(["Aucune reservation correspondant à l'id " .  $id], 404);
 
             }
             
